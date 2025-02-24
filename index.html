@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kausai Chatbot</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .header, .footer {
+            background: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        .footer input {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #6200ea;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .chat-box {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .chat-bubble {
+            margin: 10px 0;
+            padding: 10px;
+            background: #6200ea;
+            border-radius: 10px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .chat-bubble.user {
+            background: #03dac6;
+            align-self: flex-end;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .profile {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .profile h3 {
+            margin-bottom: 5px;
+        }
+        .profile p {
+            color: #aaa;
+        }
+        .toggle-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6200ea;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Kausai Chatbot</h1>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="profile" id="profile">
+            <img src="profile.jpg" alt="Profile Picture">
+            <h3>User Name</h3>
+            <p>This is a user bio.</p>
+        </div>
+        <div class="footer">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <button class="toggle-button" onclick="toggleView()">&#9776;</button>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const profile = document.getElementById('profile');
+
+        function toggleView() {
+            if (chatBox.style.display === 'none') {
+                chatBox.style.display = 'block';
+                profile.style.display = 'none';
+            } else {
+                chatBox.style.display = 'none';
+                profile.style.display = 'block';
+            }
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== '') {
+                const userBubble = document.createElement('div');
+                userBubble.className = 'chat-bubble user';
+                userBubble.innerText = userInput;
+                document.getElementById('chat-box').appendChild(userBubble);
+                document.getElementById('user-input').value = '';
+
+                // Simulate bot response
+                setTimeout(() => {
+                    const botBubble = document.createElement('div');
+                    botBubble.className = 'chat-bubble';
+                    botBubble.innerText = 'This is a bot response.';
+                    document.getElementById('chat-box').appendChild(botBubble);
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
